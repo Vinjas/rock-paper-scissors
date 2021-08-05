@@ -1,45 +1,28 @@
 const possibleResults = ["Rock", "Paper", "Scissors"]
 
 function computerPlay() {
-    //Return rock, paper or scissors randomly
-    let randomIndex = Math.floor(Math.random() * (possibleResults.length) - 0) + 0;
+    let randomIndex = Math.floor(
+            Math.random() * (possibleResults.length) - 0
+        ) + 0;
+        
     let computerResult = possibleResults[randomIndex].toLowerCase();
 
     return computerResult;
 }
-//console.log(computerPlay())
-
 
 function playRound(playerSelection, computerSelection) {
     if(playerSelection === computerSelection) {
         return "It's a tie!"
+    } 
+    else if (
+        computerSelection === "rock" && playerSelection === "scissors" ||
+        computerSelection === "paper" && playerSelection === "rock" ||
+        computerSelection === "scissors" && playerSelection === "paper"
+    ) {
+        return `You lose! ${computerSelection} beats ${playerSelection}`
     }
-
-    switch (playerSelection) {
-        case "paper": {
-            if(computerSelection === "scissors") {
-                return "You lose! Scissors beats paper"
-            } else if(computerSelection === "rock") {
-                return "You win! Paper beats rock"
-            }
-        }
-        case "scissors": {
-            if(computerSelection === "paper") {
-                return "You win! Scissors beats paper"
-            } else if(computerSelection === "rock") {
-                return "You lose! Rock beats scissors"
-            }
-        }
-        case "rock": {
-            if(computerSelection === "paper") {
-                return "You lose! Paper beats rock"
-            } else if(computerSelection === "scissors") {
-                return "You win! Rock beats scissors"
-            }
-        }
-        default: {
-            return playerSelection;
-        }
+    else {
+        return `You win! ${playerSelection} beats ${computerSelection}`
     }
 }
 
@@ -48,7 +31,10 @@ function game(rounds) {
 
     for(let i = 0; i < rounds; i++) {
         let computerSelection = computerPlay();
-        let playerSelection = window.prompt("Choose: Rock, Paper or Scisors").toLowerCase();
+        
+        let playerSelection = window
+            .prompt("Choose: Rock, Paper or Scisors")
+            .toLowerCase();
 
         results += playRound(playerSelection, computerSelection) + "\n"
     }
